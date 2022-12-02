@@ -1,0 +1,5 @@
+[http]
+	proxy = http://p42.cycu.org:3128
+[user]
+	name = Jason920929
+	email = jason920929@gmail.com
