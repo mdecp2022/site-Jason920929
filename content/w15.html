@@ -141,27 +141,54 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">W12 << <a href='W12.html'>Previous</a> <a href='w14.html'>Next</a> >> w14<br /><h1>w13</h1>
-<p><a href="https://mdecp2022.github.io/site-Jason920929/content/Brython.html?src2=https://gist.githubusercontent.com/Jason920929/6a92afea36315e4c3387fa65cb148df5/raw/e0dbc6f6e3fba2667df96e75df3b4068bed22e17/w13_temp_ex1.py">ex1</a></p>
-<pre>'''
-f = c*9/5 + 32
-c = (f-32)*5/9
-'''
-c = input("請輸入攝氏溫度直")
-#print(type(c))
-c = float(c)
-print(c,c*9/5 + 32)</pre>
-<p><a href="https://mdecp2022.github.io/site-Jason920929/content/Brython.html?src=https://gist.githubusercontent.com/Jason920929/6a92afea36315e4c3387fa65cb148df5/raw/0f0df49834815cd93589d67522d6252cd9db7040/w13_temp_ex2.py">ex2</a> 新增中文註解</p>
-<pre>'''
-f = c*9/5 + 32
-c = (f-32)*5/9
-'''
-c = input("請輸入攝氏溫度直")
-#print(type(c))
-c = float(c) 浮點
-print("你輸入的攝氏溫度: " + str(c), "等於華氏溫度: " + str(c*9/5 + 32))<br/><br/>心得：我現在終於慢慢了解這堂課的運作方式，也感謝老師為我解答<br/><br/><br/><br/><br/><br/><br/></pre>
+    <div id="tipue_search_content">w14 << <a href='w14.html'>Previous</a> <a href='Brython.html'>Next</a> >> Brython<br /><h1>w15</h1>
+<p><em><strong>1.</strong></em>為何學習計算機程式需要建立個人倉儲</p>
+<p><strong>A：</strong><span>才可以建立一個網站</span></p>
+<p><em><strong>2.</strong></em>全球資訊網能夠提供什麼功能或有什麼優點</p>
+<p><strong>A：</strong>主要是文字檔案格式化和超文件標示語言(HTML) 除格式化文字以外，網頁還可能包含圖片、影片、聲音等... 這些元件會在使用者的網頁瀏覽器中呈現為多媒體內容的連貫頁面</p>
+<p><em><strong>3.</strong></em>Replit, stud.cycu.org 與 localhost 分別代表甚麼?</p>
+<p><strong>A：</strong>(1)Replit是一個提供線上集成開發環境服務的公司</p>
+<p>(2)stud是學校的</p>
+<p>(3)localhost是一個在電腦網路中用於表示此電腦的主機名</p>
+<p><em><strong>4.</strong></em>https, ssh 到底提供使用者那些功能或優點?</p>
+<p><strong>A：</strong>(1)https的全稱是超文本傳輸安全協議（Hypertext Transfer Protocol Secure），是一種網絡安全傳輸協議，可實現瀏覽器和網站服務器數據傳輸加密。</p>
+<p>(2)ssh的全稱是安全外殼協定（Secure Shell Protocol）是一種加密的網路傳輸協定，可在不安全的網路中為網路服務提供安全的傳輸環境。</p>
+<div><em><strong>5.</strong></em>Brython 與 Python 有甚麼差別?</div>
+<div><strong><strong>A：</strong></strong>Brython比較適合入門</div>
+<div>
+<div></div>
+<div><em><strong>6.</strong></em>能夠直接在瀏覽器中以 Brython 繪製中華民國國旗, 或模擬綠色方塊在方塊格點中任意移動, 代表甚麼?</div>
+<div><strong>A：</strong>代表很厲害</div>
+<div><em><strong>7.</strong></em>變數, 字串, 整數, 浮點數, 數列, Tuple, Dictionary, 函式, 重複迴圈, class, 物件導向, 資料庫, 這些名詞對您而言代表甚麼?</div>
+<div><strong>A：</strong>很專業的東西，對於非資工的學生太困難</div>
+</div>
+<p>
+<script type="text/python">
+from browser import html, document
+# Brython 的 input() 可以接受輸入提示字串, 跳出瀏覽器輸入表單後, 將輸入內容以字串取回
+#user_input_temp = input("請輸入攝氏溫度值:")
+# 接著列出 user_input_temp 變數的資料型別
+# 但是在頁面中 Brython 的 print() 將會顯示在 log 而非頁面
+#print(type(user_input_temp))
+# 這裡定義一個 brython_div 變數, 透過 document[] 與頁面中 id="brython_div" 的位置對應
+brython_div = document["brython_div"]
+# 看能不能直接將變數值字串列在標註 id 為 "brython_div" 的頁面位置
+#brython_div <= user_input_temp
+# 之後若要列出 html, 則需要透過 Brython 的 html 模組
+# 接下來要設法按下按鈕之後才執行取使用者 input 的流程
+# 首先 comment 掉前面的 input() 與 print(), 同時蓋掉輸出, 並利用事件導向設計一個函式
+def get_input(env):
+    user_input_temp = input("請輸入攝氏溫度值:")
+    brython_div <= user_input_temp
+# 透過 Brython browser 模組中的 document 物件將 id="btn1" 的物件中的 bind() 方法
+# 讓使用者 click 後會經由瀏覽器中的 event 通知執行 get_input 函式
+document["btn1"].bind('click', get_input)
+</script>
+</p>
 <p></p>
-<br />W12 << <a href='W12.html'>Previous</a> <a href='w14.html'>Next</a> >> w14</div>
+<p></p>
+<p></p>
+<br />w14 << <a href='w14.html'>Previous</a> <a href='Brython.html'>Next</a> >> Brython</div>
         
     <!-- footer -->
       <div class="container">
