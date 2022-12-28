@@ -4,12 +4,87 @@
 <h1>HW</h1>
 <h2>w10</h2>
 <p><a href="https://mdecp2022.github.io/site-Jason920929/content/Brython.html?src=https://gist.githubusercontent.com/Jason920929/4f9a9188d188d8bd49e86cd84c2c8ece/raw/dc97b4c76a83af6eeb1df7d90e6b4a15bd58c625/w10%25E6%258A%25BD%25E9%25BB%259E%25E7%25A8%258B%25E5%25BC%258F">w10小考成績</a> 輸入班級及網址即可列出各班學生成績</p>
-<p>import ast</p>
-<p>from browser import document, html, bind</p>
-<p>brython_div = document["brython_div1"]<br/># create a button using html <br/>brython_div &lt;= html.BUTTON("輸入 cname, url", id="get_cname")</p>
-<p>class quiz:<br/> def __init__(self, cname, url):<br/> self.cname = cname<br/> self.url = url</p>
-<p># 定義一個函式, 以班級代號字串作為輸入, 可以傳回各班修課學員的學號數列<br/> def get_stud(self):<br/> # 將課程的班級代號字串作為 dict 的 key, 而 2022 fall 的課程代號作為對應值<br/> # 使用者可以利用班級代號從 courses dict 取出課程代號<br/> courses = {"1a": "0747", "1b": "0761", "2a": "0773", "2b": "0786"}<br/> # 利用 c_name 從 courses 得到該學期的課程代號<br/> c = courses[self.cname]<br/> # 利用課程代號從學校教務主機取的該班修課人員名單<br/> curl = "https://nfu.cycu.org/?semester=1111&amp;courseno=" + c + "&amp;column=True"<br/> # 讀出各修課人員資料後, 以跳行符號切割, 得到的 data 為數列<br/> data = open(curl).read().split("\n")<br/> # 因為最後一筆資料為空字串, 因此利用數列運算將其去除<br/> stud = data[:-1]<br/> # get_stud() 函式最後將對應班級的修課人員學號以數列格式傳回<br/> return stud<br/> <br/> def get_score(self):<br/> # 利用 open() 與 read() 讀取考試結果 JSON 檔案<br/> json_data = open(self.url).read()<br/> # 利用 ast.literal_eval() 將字串 dict, 轉為程式可用的 dict 資料型別<br/> big_dict = ast.literal_eval(json_data)<br/> # 從 big_dict 中, 取出 body 中的 testuser 欄位資料<br/> data = big_dict["body"]["testuser"]<br/> # 定義一個空 dict 資料變數, 隨後利用迴圈逐一將學號作為 key, 考試成績為 valude<br/> # 組成 quiz_dict 的資料內容, 以便之後可以用學號當作輸入, 取得該員考試成績<br/> quiz_dict = {}<br/> for i in data:<br/> # data 資料中的 user_name 為考試學員的帳號, 也就是學號<br/> stud_id = data[i]["user_name"]<br/> # data 資料中的 total_score 欄位為考試成績<br/> # 因為考試成績為字串, 先轉為浮點數後, 再轉為整數<br/> stud_score = int(float(data[i]["total_score"]))<br/> # 逐一以學號為 key, 考試成績為對應 value, 將資料放入 quiz_dict<br/> quiz_dict[stud_id] = stud_score<br/> # 取得各學員的考試成績 quiz_dict 後, 將資料傳回<br/> return quiz_dict</p>
-<p>def gen_result(stud, score):<br/> abs_num = 0<br/> brython_div &lt;= html.BR()<br/> for i in stud:<br/> brython_div &lt;= i + ":"<br/> try:<br/> s = score[i]<br/> except:<br/> s = "缺考"<br/> abs_num += 1<br/> brython_div &lt;= s<br/> brython_div &lt;= html.BR()<br/> brython_div &lt;= "總計有 " + str(abs_num) + "人缺考"<br/> <br/>@bind(document["get_cname"], 'click')<br/>def get_cname(env):<br/> user_input = input("請輸入 cname,url")<br/> cname_url = user_input.split(",")<br/> cname = cname_url[0]<br/> url = cname_url[1]<br/> data = quiz(cname, url)<br/> stud = data.get_stud()<br/> score = data.get_score()<br/> # 以 stud, score 為輸入, 列出展示用的超文件結果<br/> gen_result(stud, score)</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import ast
+
+from browser import document, html, bind
+
+brython_div = document["brython_div1"]
+# create a button using html
+brython_div &lt;= html.BUTTON("輸入 cname, url", id="get_cname")
+
+class quiz:
+def __init__(self, cname, url):
+self.cname = cname
+self.url = url
+
+# 定義一個函式, 以班級代號字串作為輸入, 可以傳回各班修課學員的學號數列
+def get_stud(self):
+# 將課程的班級代號字串作為 dict 的 key, 而 2022 fall 的課程代號作為對應值
+# 使用者可以利用班級代號從 courses dict 取出課程代號
+courses = {"1a": "0747", "1b": "0761", "2a": "0773", "2b": "0786"}
+# 利用 c_name 從 courses 得到該學期的課程代號
+c = courses[self.cname]
+# 利用課程代號從學校教務主機取的該班修課人員名單
+curl = "https://nfu.cycu.org/?semester=1111&amp;courseno=" + c + "&amp;column=True"
+# 讀出各修課人員資料後, 以跳行符號切割, 得到的 data 為數列
+data = open(curl).read().split("\n")
+# 因為最後一筆資料為空字串, 因此利用數列運算將其去除
+stud = data[:-1]
+# get_stud() 函式最後將對應班級的修課人員學號以數列格式傳回
+return stud
+
+def get_score(self):
+# 利用 open() 與 read() 讀取考試結果 JSON 檔案
+json_data = open(self.url).read()
+# 利用 ast.literal_eval() 將字串 dict, 轉為程式可用的 dict 資料型別
+big_dict = ast.literal_eval(json_data)
+# 從 big_dict 中, 取出 body 中的 testuser 欄位資料
+data = big_dict["body"]["testuser"]
+# 定義一個空 dict 資料變數, 隨後利用迴圈逐一將學號作為 key, 考試成績為 valude
+# 組成 quiz_dict 的資料內容, 以便之後可以用學號當作輸入, 取得該員考試成績
+quiz_dict = {}
+for i in data:
+# data 資料中的 user_name 為考試學員的帳號, 也就是學號
+stud_id = data[i]["user_name"]
+# data 資料中的 total_score 欄位為考試成績
+# 因為考試成績為字串, 先轉為浮點數後, 再轉為整數
+stud_score = int(float(data[i]["total_score"]))
+# 逐一以學號為 key, 考試成績為對應 value, 將資料放入 quiz_dict
+quiz_dict[stud_id] = stud_score
+# 取得各學員的考試成績 quiz_dict 後, 將資料傳回
+return quiz_dict
+
+def gen_result(stud, score):
+abs_num = 0
+brython_div &lt;= html.BR()
+for i in stud:
+brython_div &lt;= i + ":"
+try:
+s = score[i]
+except:
+s = "缺考"
+abs_num += 1
+brython_div &lt;= s
+brython_div &lt;= html.BR()
+brython_div &lt;= "總計有 " + str(abs_num) + "人缺考"
+
+@bind(document["get_cname"], 'click')
+def get_cname(env):
+user_input = input("請輸入 cname,url")
+cname_url = user_input.split(",")
+cname = cname_url[0]
+url = cname_url[1]
+data = quiz(cname, url)
+stud = data.get_stud()
+score = data.get_score()
+# 以 stud, score 為輸入, 列出展示用的超文件結果
+gen_result(stud, score)
+
+
+</pre>
+<br/><br/><br/>w10-2
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">A = [i for i in range(1,10,2)]
+print(A)</pre>
 <p></p><h2>W12</h2>
 <p><a href="https://mdecp2022.github.io/site-Jason920929/content/Brython.html?src=https://gist.githubusercontent.com/Jason920929/91233775f2dff8b456bfd2950b465acc/raw/3286ffb8f5b73dceef588c015ab28717592767a6/w12_hw_ex1.py">ex1</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># Brython 的 input() 可以接受輸入提示字串, 跳出瀏覽器輸入表單後, 將輸入內容以字串取回
@@ -36,7 +111,7 @@ print("攝氏 " + str(user_input_temp) + " 度, 等於華氏 " + str(Fahrenheit)
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">f = c*9/5 + 32
 c = (f-32)*5/9
 '''
-c = input("請輸入攝氏溫度直")
+c = input("請輸入攝氏溫度值")
 #print(type(c))
 c = float(c)
 print(c,c*9/5 + 32)</pre>
@@ -46,7 +121,7 @@ print(c,c*9/5 + 32)</pre>
 f = c*9/5 + 32
 c = (f-32)*5/9
 '''
-c = input("請輸入攝氏溫度直")
+c = input("請輸入攝氏溫度值")
 #print(type(c))
 c = float(c) 浮點
 print("你輸入的攝氏溫度: " + str(c), "等於華氏溫度: " + str(c*9/5 + 32))
