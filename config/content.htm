@@ -1,8 +1,82 @@
 <h1>About</h1>
 <p>cmsite: wcms use <a href="https://github.com/mdecycu/cmsimde">https://github.com/mdecycu/cmsimde</a> as submodule</p>
 <p><a href="https://github.com/mdecp2022/site-Jason920929">github倉儲</a></p>
+<h1>學習心得</h1>
+<p>w1:中秋連假。</p>
+<p>w2:設定電腦教室ipv6網站及原理，並提供設定檔存入隨身碟，及建立github帳號 勉強能聽懂。</p>
+<p>w3:<span>學習replit建立帳號，並創建動態網站及靜態網站，已經開始聽不太懂了，不過還好有室友可以詢問。</span></p>
+<p><span>w4:下載可攜檔案，ssh及git token教學 有點複雜，需要回宿舍看教學影片仔細研究。</span></p>
+<p><span>w5:新增stud及近端的localhost兩種更新維護網站方式 好難，有聽沒有懂。</span></p>
+<p><span>w6:老師開始出作業了，但是不會做</span></p>
+<p><span>w7:從cadlab網路設定到雙支援可攜環境session配置說明 已經到了難以理解的地步了... 擔心會被當掉</span></p>
+<p>w8:利用 putty.exe 遠端登入到 stud.cycu.org 還有git clone個人倉儲 git clone搞了好久才會</p>
+<p>w9:期中考 好難...</p>
+<p>w10:我有做出hw2的作業 雖然是後面學會後才補上的，但至少有完成</p>
+<p>w11:運動會</p>
+<p>w12:老師看不下去重頭開始教，也讓我終於理解這堂課的操作模式了</p>
+<p>w13:後來搞懂localhost的方法後，我都使用localhost的方式來更新網站，我個人覺得比replit簡單也比較快</p>
+<p>w14~現在:慢慢的補上之前的作業，可是有些作業還是不會做...</p>
 <h1>HW</h1>
-<h2>w10</h2>
+<p></p>
+<p></p>
+<p></p>
+<h2>w6</h2>
+<p><a href="https://mdecp2022.github.io/site-Jason920929/content/Brython.html?src=https://gist.githubusercontent.com/Jason920929/83eef52ef044db35b3a47d00fee45794/raw/6bd9c2b73a84c43c92d0261325296edfbf286767/w6hw">抽點程式</a> <a href="https://mdecp2022.github.io/site-Jason920929/content/Brython.html?src=https://gist.githubusercontent.com/Jason920929/af67cae263bf24b346c523bc9f7a4a0d/raw/c220bb80446e048bd735d5af15b9aecf7195e028/w6hw2">1a學員</a></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># Python 的註解分為單行註解與多行, 單行註解可在字串前方放入 #
+'''多行註解則可以透過三個單引號前後標註字串或文字段落內容, 
+也可以使用三個雙引號作為多行註解的標註
+'''
+# 使用 import 導入 random 模組, 隨後就可以直接引用 random 模組的方法
+import random
+cp1a = "0747"
+# 宣告 url 變數值為字串, 此字串為取得 cp2022 1a 選課成員名單
+url = "https://nfu.cycu.org/?semester=1111&amp;courseno=" + cp1a + "&amp;column=True"
+# 利用上述已經宣告的 url 變數字串值, 作為 open() 函式的輸入變數, 可以連結至該網站
+# 連接 url 所代表字串的網站後, 再利用 read() 函式讀取該網站的內容, 即可取得 cp2022 1a 的選課成員學號
+# url 所屬的網站, 乃 69 中的一台虛擬主機 8/10ff-0-1-2, 並利用 Get 從教務主機取回課程註冊成員學號
+# 由於所取回的學號以跳行符號隔開, 因此取回的學號資料行, 再利用 split() 函式, 以 \n 跳行符號分割後
+# 所對應到 data 的資料型別將會是數列
+data = open(url).read().split("\n")
+# 經過檢查 data 數列, 發現最後一個 element 為空字串, 因此利用 [:-1] 去掉數列的最後一個元素, -1 代表數列最後一個元素的索引
+#print(data[:-1])
+# 設定一個變數, 與修課成員學號數列對應
+stud = data[:-1]
+# 使用 random 模組中的 shuffle() 函式, 以隨機的方式排列 stud 數列內容
+random.shuffle(stud)
+# 設定 num 與 5 對應, 或將 5 整數值存入 num 變數所對應的記憶體位址
+num = 5
+# 利用 for 重複迴圈與 range() 變數, 列印出 (利用 print() 函式) 已經隨機排列次序的 stud 數列的最前面 num 個學號值
+for i in range(num):
+    print(stud[i])</pre>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from browser import document, html
+
+brython_div1 = document["brython_div2"]
+"""
+brython_div1 &lt;= html.BUTTON("hello")
+brython_div1 &lt;= html.BR()
+brython_div1 &lt;= html.A("google", href="https://google.com")
+"""
+
+url = "https://mde.tw/studlist/2022fall/1a.txt"
+data = open(url).read().split("\n")
+mdecp2022 = "https://mdecp2022.github.io/site-"
+data = data[1:-1]
+for i in data:
+    stud = i.split("\t")
+    stud_num = stud[0]
+    github_acc = stud[1]
+    #print(stud_num, github_acc)
+    if github_acc == "":
+        github_acc = stud_num
+    site = mdecp2022 + github_acc
+    link = html.A(stud_num, href=site)
+    brython_div1 &lt;= link
+    brython_div1 &lt;= html.BR()</pre>
+<p>心得:我只會抽點五個，但是不會兩個作業結合</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p><h2>w10</h2>
 <p><a href="https://mdecp2022.github.io/site-Jason920929/content/Brython.html?src=https://gist.githubusercontent.com/Jason920929/4f9a9188d188d8bd49e86cd84c2c8ece/raw/dc97b4c76a83af6eeb1df7d90e6b4a15bd58c625/w10%25E6%258A%25BD%25E9%25BB%259E%25E7%25A8%258B%25E5%25BC%258F">w10小考成績</a> 輸入班級及網址即可列出各班學生成績</p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import ast
 
@@ -85,7 +159,8 @@ gen_result(stud, score)
 <p><br/><br/><br/><a href="https://mdecp2022.github.io/site-Jason920929/content/Brython.html?src=https://gist.githubusercontent.com/Jason920929/54c08282852b0e9feae3ff9b31b218fd/raw/ef777bb13c117ccbcb265cef38a87c3db007cb59/w10-2">w10-2</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">A = [i for i in range(1,10,2)]
 print(A)</pre>
-<p></p><h2>W12</h2>
+<p></p>
+<h2>W12</h2>
 <p><a href="https://mdecp2022.github.io/site-Jason920929/content/Brython.html?src=https://gist.githubusercontent.com/Jason920929/91233775f2dff8b456bfd2950b465acc/raw/3286ffb8f5b73dceef588c015ab28717592767a6/w12_hw_ex1.py">ex1</a></p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># Brython 的 input() 可以接受輸入提示字串, 跳出瀏覽器輸入表單後, 將輸入內容以字串取回
 user_input_temp = input("請輸入攝氏溫度值:")
@@ -127,7 +202,8 @@ c = float(c) 浮點
 print("你輸入的攝氏溫度: " + str(c), "等於華氏溫度: " + str(c*9/5 + 32))
 </pre>
 <pre><br/><br/><br/><br/><br/>心得：我現在終於慢慢了解這堂課的運作方式，也感謝老師為我解答<br/><br/><br/><br/><br/><br/><br/></pre>
-<p></p><h2>w14</h2>
+<p></p>
+<h2>w14</h2>
 <!-- 
 在動態網站頁面中啟用 Brython 執行環境的用法, 請注意動態網站執行所在路徑
 -->
@@ -143,6 +219,8 @@ brython({debug:1, pythonpath:['/static/','/downloads/py/']});
 </p>
 <p><button id="btn1">取使用者輸入</button></p>
 <p>心得:想問老師要如何改才能在輸入完攝氏溫度後轉華氏溫度？</p>
+<p></p>
+<p>12/30更新:不知為何按鈕沒反應？</p>
 <div id="brython_div"></div>
 <div></div>
 <div></div>
@@ -150,8 +228,7 @@ brython({debug:1, pythonpath:['/static/','/downloads/py/']});
 <div></div>
 <div></div>
 <div></div>
-<div></div>
-<h2>w15</h2>
+<div></div><h2>w15</h2>
 <p><em><strong>1.</strong></em>為何學習計算機程式需要建立個人倉儲</p>
 <p><strong>A：</strong><span>才可以建立一個網站</span></p>
 <p><em><strong>2.</strong></em>全球資訊網能夠提供什麼功能或有什麼優點</p>
